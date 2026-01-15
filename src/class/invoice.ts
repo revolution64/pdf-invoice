@@ -490,25 +490,28 @@ export class PDFInvoice {
 									currOptions
 								)}`,
 							],
+
+							...(this.orderDiscount && this.orderDiscount > 0
+								? [
+									[
+										`\n ${this.config.string.totalDiscount}`,
+										`\n ${helper.formatCurrency(
+											this.orderDiscount,
+											currOptions
+										)}`,
+									],
+								]
+								: []),
+
+							['\n Totaal na korting', `\n ${helper.formatCurrency(helper.calcSubTotal(this.items) - (this.orderDiscount || 0), currOptions)}`],
 							[
 								`\n ${this.config.string.totalTax}`,
 								`\n ${helper.formatCurrency(
-									helper.calcTax(this.items),
+									helper.calcTax(this.items, this.orderDiscount),
 									currOptions
 								)}`,
 							],
 
-							...(this.orderDiscount && this.orderDiscount > 0
-								? [
-										[
-											`\n ${this.config.string.totalDiscount}`,
-											`\n ${helper.formatCurrency(
-												this.orderDiscount,
-												currOptions
-											)}`,
-										],
-								  ]
-								: []),
 
 							...(this.invoice.fee && this.invoice.fee > 0 ? [[
 								`\n ${this.config.string.fee}`,

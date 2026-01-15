@@ -3,7 +3,7 @@ import type { ItemInfo } from "../../global";
 interface Helpers {
 	calcItemTotal(item: ItemInfo): number | string;
 	calcItemTotalDiscount(item: ItemInfo[]): number | string;
-	calcTax(items: ItemInfo[]): number | string;
+	calcTax(items: ItemInfo[], totalDiscount: number): number | string;
 	calcSubTotal(items: ItemInfo[]): number | string;
 	calcFinalTotal(
 		items: ItemInfo[],
@@ -94,10 +94,11 @@ const helper: Helpers = {
 	 * Calculate tax.
 	 *
 	 * @param {ItemInfo[]} items.
+	 * @param {number} totalDiscount.
 	 * @returns {number} total.
 	 * @since 1.0.0
 	 */
-	calcTax: function (items: ItemInfo[]): number | string {
+	calcTax: function (items: ItemInfo[], totalDiscount: number): number | string {
 		if (!items || !items.length) {
 			return 0;
 		}
@@ -105,11 +106,12 @@ const helper: Helpers = {
 		let total = 0;
 
 		items.forEach((item) => {
-			const price = item.price;
+			const price = item.price + (item.price *0.21);
 			const quantity = item.quantity;
-			const tax = item.tax || 0;
-			total += (price * quantity * tax) / 100;
+			total += (price * quantity);
 		});
+
+		total = (total - totalDiscount) * (21 / 121);
 
 		return total.toFixed(2);
 	},

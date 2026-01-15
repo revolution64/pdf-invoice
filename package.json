@@ -1,7 +1,7 @@
 {
-	"name": "@h1dd3nsn1p3r/pdf-invoice",
-	"version": "1.0.13",
-	"author": "h1dd3nsn1p3r",
+	"name": "@sdretrogames/pdf-invoice",
+	"version": "1.0.0",
+	"author": "SD IT Services",
 	"description": "Simple yet powerful node JS library that generates PDF invoice on the fly.",
 	"license": "MIT",
 	"main": "./dist/index.js",
