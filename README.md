@@ -63,6 +63,7 @@ const payload = {
 		taxId: "Tax ID: 1234567890", // Optional.
 	},
 	invoice: {
+		type: "invoice", // Optional. "invoice" (default) or "credit-note".
 		number: 1721, // String or number.
 		date: "25/12/2023", // Default is current date.
 		dueDate: "25/12/2023", // Default is current date.
@@ -143,10 +144,11 @@ For now, only **svg logo** can be used. If you wish to use logo & do not want th
 
 ### Invoice
 
-This is the information about the invoice. It is an object with the following structure:
+This is the information about the invoice or credit note. It is an object with the following structure:
 
 ```js
 const invoice = {
+	type: "invoice", // Optional. "invoice" (default) or "credit-note".
 	number: 1721, // Required.
 	date: "25/12/2023", // Optional. Default is current date.
 	dueDate: "25/12/2023", // Optional. Default is current date.
@@ -159,6 +161,22 @@ const invoice = {
 ```
 
 The invoice number is required. It might be a `int` that you use to track your invoices. In most cases, it is a unique number that reference the `order ID` or invoice sequence number in your database. Rest of the fields are optional.
+
+#### Credit Note
+
+To generate a credit note instead of an invoice, set `type` to `"credit-note"`:
+
+```js
+const invoice = {
+	type: "credit-note",
+	number: 1722,
+	date: "25/12/2023",
+	status: "Refunded",
+	path: "./credit-note.pdf",
+}
+```
+
+This will automatically update the document header to display "C R E D I T   N O T E" and adjust the PDF metadata accordingly. You can also customize the credit note label via the `config.string.creditNote` option, or override it entirely using the `label` field.
 
 The `locale` is the BCP 47 language tag. Default is `en-US`. You can find the list of language tags [here](http://4umi.com/web/html/languagecodes.php). The `currency` is the ISO 4217 currency code. Default is `USD`. You can find the list of currency codes [here](https://www.iban.com/currency-codes). For more information on locale and currency, refer to [Mozilla Int Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) documentation.
 

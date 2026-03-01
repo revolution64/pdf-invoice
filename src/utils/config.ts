@@ -7,6 +7,7 @@
 const defaultConfig = {
 	string: {
 		invoice: "I N V O I C E",
+		creditNote: "C R E D I T   N O T E",
 		refNumber: "Ref no",
 		date: "Date",
 		dueDate: "Due Date",

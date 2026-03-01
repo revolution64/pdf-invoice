@@ -146,11 +146,12 @@ export class PDFInvoice {
 	 * @since 1.0.0
 	 */
 	docMeta(): Record<string, string | undefined> {
+		const docType = this.invoice.type === 'credit-note' ? 'Credit Note' : 'Invoice';
 		const meta = {
-			title: "Invoice - #" + this.invoice.number,
+			title: docType + " - #" + this.invoice.number,
 			author: this.company.name,
-			subject: "Invoice - " + this.customer.name,
-			keywords: "invoice",
+			subject: docType + " - " + this.customer.name,
+			keywords: docType.toLowerCase(),
 		};
 
 		return meta;
@@ -309,6 +310,11 @@ export class PDFInvoice {
 		if (this.invoice.label) {
 			sectionCompany.columns[1].stack.unshift({
 				text: this.invoice.label,
+				style: "h1",
+			});
+		} else if (this.invoice.type === 'credit-note') {
+			sectionCompany.columns[1].stack.unshift({
+				text: this.config.string.creditNote || "C R E D I T   N O T E",
 				style: "h1",
 			});
 		} else {
