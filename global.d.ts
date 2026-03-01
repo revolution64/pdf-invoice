@@ -22,6 +22,7 @@ export interface CustomerInfo {
 }
 
 export interface InvoiceInfo {
+	type?: 'invoice' | 'credit-note';
 	label?: string;
 	number: string | number;
 	date: string;
@@ -91,6 +92,7 @@ export interface Configuration {
 	style: ConfigBaseStyle;
 	string: {
 		invoice?: string;
+		creditNote?: string;
 		refNumber?: string;
 		date?: string;
 		dueDate?: string;
