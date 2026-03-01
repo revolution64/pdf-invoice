@@ -33,6 +33,9 @@ export interface InvoiceInfo {
 	locale?: string;
 	orderDiscount?: number;
 	fee?: number;
+	originalInvoiceNumber?: string | number;
+	originalInvoiceDate?: string;
+	creditNoteReason?: string;
 }
 
 export interface ItemInfo {
@@ -94,8 +97,10 @@ export interface Configuration {
 		invoice?: string;
 		creditNote?: string;
 		refNumber?: string;
+		creditNoteRefNumber?: string;
 		date?: string;
 		dueDate?: string;
+		creditNoteDueDate?: string;
 		status?: string;
 		billTo?: string;
 		item?: string;
@@ -109,5 +114,8 @@ export interface Configuration {
 		totalDiscount?: string;
 		fee?: string;
 		grandTotal?: string;
+		creditNoteGrandTotal?: string;
+		creditNoteReason?: string;
+		creditNoteReference?: string;
 	};
 }
