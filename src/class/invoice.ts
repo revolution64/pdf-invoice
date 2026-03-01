@@ -314,7 +314,7 @@ export class PDFInvoice {
 			});
 		} else if (this.invoice.type === 'credit-note') {
 			sectionCompany.columns[1].stack.unshift({
-				text: this.config.string.creditNote || "C R E D I T   N O T E",
+				text: this.config.string.creditNote || "C R E D I T\nN O T A",
 				style: "h1",
 			});
 		} else {

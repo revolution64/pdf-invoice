@@ -176,7 +176,7 @@ const invoice = {
 }
 ```
 
-This will automatically update the document header to display "C R E D I T   N O T E" and adjust the PDF metadata accordingly. You can also customize the credit note label via the `config.string.creditNote` option, or override it entirely using the `label` field.
+This will automatically update the document header to display "C R E D I T" on the first line and "N O T A" on the second line, and adjust the PDF metadata accordingly. You can also customize the credit note label via the `config.string.creditNote` option, or override it entirely using the `label` field.
 
 The `locale` is the BCP 47 language tag. Default is `en-US`. You can find the list of language tags [here](http://4umi.com/web/html/languagecodes.php). The `currency` is the ISO 4217 currency code. Default is `USD`. You can find the list of currency codes [here](https://www.iban.com/currency-codes). For more information on locale and currency, refer to [Mozilla Int Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) documentation.
 
