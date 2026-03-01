@@ -328,7 +328,7 @@ export class PDFInvoice {
 
 		const refLabel = isCreditNote
 			? (this.config.string.creditNoteRefNumber || "Credit note no")
-			: (this.config.string.refNumber || "Ref no:");
+			: (this.config.string.refNumber || "Ref no");
 
 		sectionCompany.columns[1].stack.push({
 			text: refLabel + ": #" + (this.invoice.number || 1),
