@@ -324,7 +324,11 @@ export class PDFInvoice {
 			});
 		}
 
-		const refLabel = this.config.string.refNumber || "Ref no:";
+		const isCreditNote = this.invoice.type === 'credit-note';
+
+		const refLabel = isCreditNote
+			? (this.config.string.creditNoteRefNumber || "Credit note no")
+			: (this.config.string.refNumber || "Ref no");
 
 		sectionCompany.columns[1].stack.push({
 			text: refLabel + ": #" + (this.invoice.number || 1),
@@ -338,7 +342,9 @@ export class PDFInvoice {
 			style: "text",
 		});
 
-		const dueDateLabel = this.config.string.dueDate;
+		const dueDateLabel = isCreditNote
+			? (this.config.string.creditNoteDueDate || "Refund Date")
+			: (this.config.string.dueDate);
 
 		sectionCompany.columns[1].stack.push({
 			text: dueDateLabel + ": " + (this.invoice.dueDate || this.date),
@@ -351,6 +357,28 @@ export class PDFInvoice {
 			text: statusLabel + ": " + (this.invoice.status || "Pending!"),
 			style: "textBold",
 		});
+
+		if (isCreditNote && this.invoice.originalInvoiceNumber) {
+			const referenceTemplate = this.config.string.creditNoteReference
+				|| "Credit note regarding invoice {number} of {date}";
+			const referenceText = referenceTemplate
+				.replace("{number}", String(this.invoice.originalInvoiceNumber))
+				.replace("{date}", this.invoice.originalInvoiceDate || "");
+
+			sectionCompany.columns[1].stack.push({
+				text: referenceText,
+				style: "text",
+			});
+		}
+
+		if (isCreditNote && this.invoice.creditNoteReason) {
+			const reasonLabel = this.config.string.creditNoteReason || "Reason";
+
+			sectionCompany.columns[1].stack.push({
+				text: reasonLabel + ": " + this.invoice.creditNoteReason,
+				style: "text",
+			});
+		}
 
 		sections.push(sectionCompany);
 
@@ -530,7 +558,9 @@ export class PDFInvoice {
 							[
 								{
 									text: `\n ${
-										this.config.string.grandTotal || this.config.string.total
+										isCreditNote
+											? (this.config.string.creditNoteGrandTotal || "Total to Refund")
+											: (this.config.string.grandTotal || this.config.string.total)
 									}`,
 									fillColor: "#DDDDDD",
 									color: "#000000",
